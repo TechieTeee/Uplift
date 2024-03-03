@@ -1,0 +1,46 @@
+/* global.css */
+
+/* Import the Bebas Neue font */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+/* Apply the font globally */
+body {
+  font-family: 'Bebas Neue', sans-serif;
+}
+
+/* Add a bright yellow background */
+body {
+  background-color: #ffd700;
+}
+
+/* Style for the header */
+.header {
+  background-color: #333; /* Dark background color for the header */
+  color: #fff; /* Text color for the header */
+  padding: 1rem; /* Add some padding to the header */
+  text-align: center; /* Center-align the text */
+}
+
+/* Style for the footer */
+.footer {
+  background-color: #333; /* Dark background color for the footer */
+  color: #fff; /* Text color for the footer */
+  padding: 1rem; /* Add some padding to the footer */
+  text-align: center; /* Center-align the text */
+}
+
+/* Additional styling for the container */
+.container {
+  max-width: 800px; /* Set a maximum width for the container */
+  margin: 0 auto; /* Center the container horizontally */
+  padding: 2rem; /* Add padding to the container */
+}
+
+/* Styling for the product card */
+.productCard {
+  background-color: #fff; /* White background color for the product card */
+  border: 1px solid #ddd; /* Add a border around the product card */
+  padding: 1rem; /* Add padding to the product card */
+  margin-bottom: 1rem; /* Add some spacing between product cards */
+}
+

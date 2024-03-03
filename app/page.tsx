@@ -1,6 +1,13 @@
 import { getFrameMetadata } from '@coinbase/onchainkit/frame';
-import type { Metadata } from 'next';
+import { Metadata } from 'next';
+import styles from '/workspace/Uplift/styles/tailwind.css';
 import { NEXT_PUBLIC_URL } from './config';
+
+// Sample product data for testing
+const products = [
+  { id: 1, name: 'Ireti Jewlery', price: 20.99, imageUrl: '/pexels-safari-consoler-14349528.jpg' },
+  { id: 2, name: 'Himalayan Co-op Monthly Subscription', price: 45.99, imageUrl: '/Himalaya_Farmer.jpg' },
+];
 
 const frameMetadata = getFrameMetadata({
   buttons: [
@@ -42,8 +49,19 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <>
-      <h1>Uplift</h1>
-    </>
+    <div className={styles.container}>
+      <h1 className={styles.title}>Uplift</h1>
+
+      <div className={styles.productContainer}>
+        {products.map((product) => (
+          <div key={product.id} className={styles.productCard}>
+            <img src={product.imageUrl} alt={product.name} className={styles.productImage} />
+            <h2 className={styles.productName}>{product.name}</h2>
+            <p className={styles.productPrice}>${product.price.toFixed(2)}</p>
+            <button className={styles.addToCartButton}>Add to Cart</button>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
