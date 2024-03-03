@@ -1,3 +1,5 @@
+/* global.css */
+
 /* Import the Bebas Neue font */
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue:wght@400&display=swap');
 
@@ -11,6 +13,14 @@ body {
 /* Add a bright yellow background */
 body {
   background-color: #ffd700;
+}
+
+/* Button styling */
+button {
+  cursor: pointer;
+  outline: none;
+  padding: 8px 16px; /* Add padding for better visual appearance */
+  border-radius: 4px; /* Add rounded corners for a softer look */
 }
 
 /* Style for the header */
