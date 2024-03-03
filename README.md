@@ -1,192 +1,31 @@
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://github.com/Zizzamia/a-frame-in-100-lines/blob/main/public/park-4.png">
-    <img alt="OnchainKit logo vibes" src="https://github.com/Zizzamia/a-frame-in-100-lines/blob/main/public/park-4.png" width="auto">
-  </picture>
-</p>
+# Uplift Marketplace
+Background
+The Uplift Marketplace project is at the forefront of driving positive change by leveraging Web 3.0 technologies to tackle global poverty. In 2019, the World Bank reported that 719 million people, constituting 9.2% of the global population, lived on less than $2.15 per day. While this statistic reflects extreme poverty, broader measures, such as multidimensional poverty and national poverty lines, highlight the complexity of the issue.
 
-# A Frame in 100 lines (or less)
+## Problem Statement
+Small business owners, especially those in low-income countries, face daunting challenges due to high transaction fees, hindering economic stability and limiting social impact. The existing economic landscape often constrains the growth of these businesses, perpetuating the cycle of poverty. Uplift Marketplace is poised to address these challenges by offering a platform that facilitates fair transactions, supports economic stability, and empowers businesses to thrive.
 
-Farcaster Frames in less than 100 lines, and ready to be deployed to Vercel.
+## Tech Stack
+Uplift Marketplace employs a sophisticated tech stack to create a robust and inclusive platform:
 
-To test a **deployed** Frame, use: https://warpcast.com/~/developers/frames.
+## Mask Protocol: Ensures secure and private transactions, safeguarding user data.
+Farcaster: Minimizes transaction fees, providing economic stability for small businesses.
+NextJS: A React-based framework that enhances performance and facilitates server-side rendering.
+Tailwind CSS: A utility-first CSS framework that streamlines styling, ensuring a consistent and visually appealing user interface.
+Web 3.0 Native Social and Empowering Entrepreneurs
+Uplift Marketplace goes beyond conventional solutions by embracing Web 3.0 native social features. This innovative approach empowers entrepreneurs in several ways:
 
-To test a **localhost** Frame, use: [Framegear](https://onchainkit.xyz/frame/framegear).
-A simple tool that allows you to run and test your frames locally:
-- without publishing
-- without casting
-- without spending warps
+1. Increased Revenue
+Web 3.0 native social features enable entrepreneurs to connect directly with their audience, fostering more meaningful relationships. This engagement can lead to increased brand loyalty, customer retention, and ultimately, higher revenue.
 
-And let us know what you build by either mentioning @zizzamia on [Warpcast](https://warpcast.com/zizzamia) or [X](https://twitter.com/Zizzamia).
+2. Decreased Transaction Fees
+By leveraging Farcaster and other cutting-edge technologies, Uplift Marketplace substantially reduces transaction fees. This decrease not only benefits entrepreneurs by increasing their profit margins but also contributes to economic stability and growth.
 
-<br />
+3. Better Control Over Marketing
+Entrepreneurs gain enhanced control over their marketing strategies through targeted and personalized approaches. Web 3.0 features allow for more precise audience targeting, ensuring that marketing efforts reach the right demographics.
 
-Have fun! ⛵️
+4. Building a Global Audience
+Uplift Marketplace facilitates the expansion of entrepreneurs' reach on a global scale. Through Web 3.0 native social networking, businesses can connect with a diverse audience, breaking down geographical barriers and fostering a truly global community.
 
-<br />
-
-## App Routing files
-
-- app/
-  - [config.ts](https://github.com/Zizzamia/a-frame-in-100-lines?tab=readme-ov-file#appconfigts)
-  - [layout.tsx](https://github.com/Zizzamia/a-frame-in-100-lines?tab=readme-ov-file#applayouttsx)
-  - [page.tsx](https://github.com/Zizzamia/a-frame-in-100-lines?tab=readme-ov-file#apppagetsx)
-- api/
-  - frame/
-    - [route.ts](https://github.com/Zizzamia/a-frame-in-100-lines?tab=readme-ov-file#appapiframeroutets)
-
-<br />
-
-### `app/page.tsx`
-
-```tsx
-import { getFrameMetadata } from '@coinbase/onchainkit/frame';
-import type { Metadata } from 'next';
-import { NEXT_PUBLIC_URL } from './config';
-
-const frameMetadata = getFrameMetadata({
-  buttons: [
-    {
-      label: 'Story time!',
-    },
-    {
-      action: 'link',
-      label: 'Link to Google',
-      target: 'https://www.google.com',
-    },
-    {
-      label: 'Redirect to pictures',
-      action: 'post_redirect',
-    },
-  ],
-  image: {
-    src: `${NEXT_PUBLIC_URL}/park-3.png`,
-    aspectRatio: '1:1',
-  },
-  input: {
-    text: 'Tell me a boat story',
-  },
-  postUrl: `${NEXT_PUBLIC_URL}/api/frame`,
-});
-
-export const metadata: Metadata = {
-  title: 'zizzamia.xyz',
-  description: 'LFG',
-  openGraph: {
-    title: 'zizzamia.xyz',
-    description: 'LFG',
-    images: [`${NEXT_PUBLIC_URL}/park-1.png`],
-  },
-  other: {
-    ...frameMetadata,
-  },
-};
-
-export default function Page() {
-  return (
-    <>
-      <h1>zizzamia.xyz</h1>
-    </>
-  );
-}
-```
-
-### `app/layout.tsx`
-
-```tsx
-export const viewport = {
-  width: 'device-width',
-  initialScale: 1.0,
-};
-
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
-  );
-}
-```
-
-### `app/config.ts`
-
-```ts
-export const NEXT_PUBLIC_URL = 'https://zizzamia.xyz';
-```
-
-### `app/api/frame/route.ts`
-
-```ts
-import { FrameRequest, getFrameMessage, getFrameHtmlResponse } from '@coinbase/onchainkit/frame';
-import { NextRequest, NextResponse } from 'next/server';
-import { NEXT_PUBLIC_URL } from '../../config';
-
-async function getResponse(req: NextRequest): Promise<NextResponse> {
-  let accountAddress: string | undefined = '';
-  let text: string | undefined = '';
-
-  const body: FrameRequest = await req.json();
-  const { isValid, message } = await getFrameMessage(body, { neynarApiKey: 'NEYNAR_ONCHAIN_KIT' });
-
-  if (isValid) {
-    accountAddress = message.interactor.verified_accounts[0];
-  }
-
-  if (message?.input) {
-    text = message.input;
-  }
-
-  if (message?.button === 3) {
-    return NextResponse.redirect(
-      'https://www.google.com/search?q=cute+dog+pictures&tbm=isch&source=lnms',
-      { status: 302 },
-    );
-  }
-
-  return new NextResponse(
-    getFrameHtmlResponse({
-      buttons: [
-        {
-          label: `🌲 ${text} 🌲`,
-        },
-      ],
-      image: {
-        src: `${NEXT_PUBLIC_URL}/park-1.png`,
-      },
-      postUrl: `${NEXT_PUBLIC_URL}/api/frame`,
-    }),
-  );
-}
-
-export async function POST(req: NextRequest): Promise<Response> {
-  return getResponse(req);
-}
-
-export const dynamic = 'force-dynamic';
-```
-
-<br />
-
-## Resources
-
-- [Official Farcaster Frames documentation](https://docs.farcaster.xyz/learn/what-is-farcaster/frames)
-- [Official Farcaster Frame specification](https://docs.farcaster.xyz/reference/frames/spec)
-- [OnchainKit documentation](https://onchainkit.xyz)
-
-<br />
-
-## Community ☁️ 🌁 ☁️
-
-Check out the following places for more OnchainKit-related content:
-
-- Follow @zizzamia ([X](https://twitter.com/zizzamia), [Farcaster](https://warpcast.com/zizzamia)) for project updates
-- Join the discussions on our [OnchainKit warpcast channel](https://warpcast.com/~/channel/onchainkit)
-
-## Authors
-
-- [@zizzamia](https://github.com/zizzamia.png) ([X](https://twitter.com/Zizzamia))
-- [@cnasc](https://github.com/cnasc.png) ([warpcast](https://warpcast.com/cnasc))
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+## Why This Matters
+Uplift Marketplace recognizes the pivotal role of technology in driving positive social impact. By combining financial inclusivity with Web 3.0 native social features, the platform not only addresses poverty but also empowers entrepreneurs to thrive in the digital era. Uplift Marketplace stands as a beacon for change, embodying the principles of fairness, empowerment, and sustainable economic growth.
