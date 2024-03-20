@@ -1,5 +1,3 @@
-![Himalaya_Farmer](https://github.com/TechieTeee/Uplift/assets/100870737/eb2bd068-d896-4d7f-8d88-2d726c7006d3)
-
 # Uplift Marketplace
 Background
 The Uplift Marketplace project is at the forefront of driving positive change by leveraging Web 3.0 technologies to tackle global poverty. In 2019, the World Bank reported that 719 million people, constituting 9.2% of the global population, lived on less than $2.15 per day. While this statistic reflects extreme poverty, broader measures, such as multidimensional poverty and national poverty lines, highlight the complexity of the issue.
